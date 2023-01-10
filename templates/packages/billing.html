@@ -1,0 +1,65 @@
+{% extends 'base.html' %}{% load static %}
+{% block content %}
+<div>
+    <div class="container">
+        <div class="row">
+            <div style="text-align: center;">
+                <h3>Welcome to Instalogic Internet</h3>
+            </div>
+        </div>
+        
+        <div class="row">
+            Package
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{package.name}}</h2>
+                <p>{{package.details.description}}</p>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <p>tk. {{package.price}}</p>
+            </div>
+           
+        </div>
+        <div class="row">Addons</div>
+        {% for item in service%}
+        {% if item.details.is_addon %}
+        
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{item.name}}</h2>
+                    <p>{{item.details.description}}</p>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <p>tk. {{item.price}}</p>
+                </div>
+            </div>
+            {% else %} 
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>None</h2>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <p>tk. 0</p>
+                </div>
+            </div>
+        
+        {% endif %}
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-7">
+               
+            </div>
+            <div class="col-md-2">Total</div>
+            <div class="col-md-3">
+                <p>tk. {{total}}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
