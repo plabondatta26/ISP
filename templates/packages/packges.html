@@ -1,32 +1,34 @@
-
-
-{% extends 'base.html' %}{% load static %}
-{% block content %}
+{% extends 'base.html' %}{% load static %} {% block content %}
 <div>
-    <div class="container">
-        <div class="row">
-            <div style="text-align: center;">
-                <h3>Welcome to Instalogic Internet</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="">
-                <form method="post" action="{% url 'billings' %}">
-                    {% csrf_token %}
-                    {% for item in data %}
-{#                    {{ item.name }}#}
+  <div class="container">
+    <div class="row">
+      <div class="">
+        <form method="post" action="{% url 'billings' %}" id="package_form">
+          {% csrf_token %} {% for item in data %} {# {{ item.name }}#}
 
-                    <div class="form-check">
-                        <input class="form-radio-input" type="radio" value={{ item.id }} id="package" name="package">
-                        <label class="form-radio-label" for="internet"><b>{{ item.name }}</b></label>
-                        <p>{{item.details.description}}</p>
-                    </div>
-                    {% endfor %}
-                    <button type="submit" class="btn btn-success mt-3">Next</button>
-                </form>
-
-            </div>
-        </div>
+          <div class="form-check">
+            <input
+              class="form-radio-input"
+              style="transform: scale(1.5)"
+              type="radio"
+              value="{{"
+              item.id
+              }}
+              id="{{ item.id }}"
+              name="package"
+            />
+            <label class="form-radio-label font1 label_position" for="internet"
+              ><b>{{ item.name }}</b></label
+            >
+            <p style="margin-left: 21px" class="font2">
+              {{item.details.description}}
+            </p>
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-success mt-3">Next</button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock content %}

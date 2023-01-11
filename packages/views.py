@@ -10,7 +10,7 @@ class HomeView(TemplateView):
     template_name = 'packages/home.html'
 
     def get(self, request, *args, **kwargs):
-        service_qs = ServiceModel.objects.all().order_by('view_order')
+        service_qs = ServiceModel.objects.filter(status=True).order_by('view_order')
         data_list = []
         for service in service_qs:
             if 'is_service' in service.details:
@@ -24,18 +24,11 @@ class PackagesView(View):
     template_name = 'packages/packges.html'
 
     def post(self, request, *args, **kwargs):
+        package_qs = []
         services = request.POST.getlist('service', None)
         service_ids = [eval(i) for i in services]
         if services:
-            service_qs = ServiceModel.objects.filter(id__in=service_ids)
-            data_list = []
-            package_qs = PackageModel.objects.filter(service__in=service_ids).distinct()
-            # data_list = []
-            # data = dict()
-            # for package in package_qs:
-            #     data["package"] = package
-            #     data["service"] = package.service.all()
-            #     data_list.append(data)
+            package_qs = PackageModel.objects.filter(service__in=service_ids, status=True).distinct()
         return render(request, self.template_name, context={"data": package_qs})
 
 
@@ -44,13 +37,13 @@ class BillingView(View):
 
     def post(self, request, *args, **kwargs):
         package_id = request.POST.get('package', None)
-        package_obj = PackageModel.objects.filter(id=package_id).first()
+        package_obj = PackageModel.objects.filter(id=package_id, status=True).first()
         data = {}
         service_list = []
         total = 0
         if package_obj:
             data["package"] = package_obj
-            for item in package_obj.service.all():
+            for item in package_obj.service.filter(status=True):
                  if "is_addon" in item.details.keys():
                     if item.details["is_addon"]:
                         service_list.append(item)

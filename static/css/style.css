@@ -1,0 +1,39 @@
+.heading1 {
+  font-size: 25px;
+}
+
+.heading2 {
+  font-size: 25px;
+}
+.heading3 {
+  font-size: 20px;
+}
+.font_weight1 {
+  font-weight: 700;
+}
+.font_weight2 {
+  font-weight: 600;
+}
+.font_weight3 {
+  font-weight: 500;
+}
+.font_weight4 {
+  font-weight: 400;
+}
+.color1 {
+  background-color: #a6bb8d;
+}
+
+.font1 {
+  font-size: 1.2rem;
+}
+.font2 {
+  font-size: 1.1rem;
+}
+.input_position {
+  height: 21px;
+  width: 20px;
+}
+.label_position {
+  margin-left: 4px;
+}
